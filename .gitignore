@@ -3,3 +3,5 @@ logs/*
 .snakemake*
 internal_README.md
 mprasnakeflow_tutorial.sif
+.ipynb_checkpoints/
+libpod/
