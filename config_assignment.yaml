@@ -2,19 +2,40 @@
 version: "0.5"
 assignments:
   assignMPRAworkshop:
-    bc_length: 15
+    bc_length: 15                         # 12 bp barcode at start of R1
+    BC_rev_comp: false                   # barcodes are NOT reverse complemented (default)
+    #linker: GAATTCATCTGGTACCTCG          # inferred linker separating barcode from oligo
+    linker_length: 20
     alignment_tool:
-        # split_number: 30 # number of files fastq should be split for parallelization
-        tool: bbmap
-        configs:
-          sequence_length: 200
-          alignment_start: 1
+      split_number: 30
+      tool: exact                        # REQUIRED for embedded barcode + linker mode
+      configs:
+        sequence_length: 300             # full length of each oligo in design_file
+        alignment_start: 1               # align to full oligo (default)
     FW:
-      - example_data/assignment/assoc_fwd.fastq.gz
-    BC:
-      - example_data/assignment/assoc_bc.fastq.gz
+      - real_data/assignment/forward/24L005276_S11_L001_R1_001_subset.fastq.gz
     REV:
-      - example_data/assignment/assoc_rev.fastq.gz
-    design_file: example_data/design/workshop_design.fa
+      - real_data/assignment/reverse/24L005276_S11_L001_R2_001_subset.fastq.gz
+    design_file: real_data/assignment/designed_oligos_deduplicated.fasta
     configs:
-      default: {}
+      default: {}                        # use default filtering unless customizing
+# ---
+# version: "0.5"
+# assignments:
+#   assignMPRAworkshop:
+#     bc_length: 15
+#     alignment_tool:
+#         # split_number: 30 # number of files fastq should be split for parallelization
+#         tool: bbmap
+#         configs:
+#           sequence_length: 200
+#           alignment_start: 1
+#     FW:
+#       - example_data/assignment/assoc_fwd.fastq.gz
+#     BC:
+#       - example_data/assignment/assoc_bc.fastq.gz
+#     REV:
+#       - example_data/assignment/assoc_rev.fastq.gz
+#     design_file: example_data/design/workshop_design.fa
+#     configs:
+#       default: {}
