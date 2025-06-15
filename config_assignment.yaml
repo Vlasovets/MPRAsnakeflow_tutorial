@@ -2,9 +2,9 @@
 version: "0.5"
 assignments:
   assignMPRAworkshop:
-    bc_length: 15                         # 12 bp barcode at start of R1
+    bc_length: 12                         # 12 bp barcode at start of R1
     BC_rev_comp: false                   # barcodes are NOT reverse complemented (default)
-    #linker: GAATTCATCTGGTACCTCG          # inferred linker separating barcode from oligo
+    #linker: GAATTCATCTGGTACCTCG          # inferred linker separating barcode from oligos
     linker_length: 20
     alignment_tool:
       split_number: 30
