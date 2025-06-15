@@ -1,24 +1,73 @@
----
 version: "0.5"
 assignments:
   assignMPRAworkshop:
-    bc_length: 12                         # 12 bp barcode at start of R1
-    BC_rev_comp: false                   # barcodes are NOT reverse complemented (default)
-    #linker: GAATTCATCTGGTACCTCG          # inferred linker separating barcode from oligos
-    linker_length: 20
+    bc_length: 12
+    BC_rev_comp: false
+    linker: GGAATTCATCTGGTACCTCGGTTCACGCAA
     alignment_tool:
-      split_number: 30 #### number of files fastq should be split for parallelization
-      tool: exact                        # REQUIRED for embedded barcode + linker mode
+      split_number: 30
+      tool: bbmap
       configs:
-        sequence_length: 300             # full length of each oligo in design_file
-        alignment_start: 1               # align to full oligo (default)
+        sequence_length: 300
+        alignment_start: 1
+        min_mapping_quality: 30
     FW:
-      - real_data/assignment/forward/24L005276_S11_L001_R1_001_subset.fastq.gz
+      - real_data/assignment/forward/24L005276_S11_L001_R1_001.fastq.gz
     REV:
-      - real_data/assignment/reverse/24L005276_S11_L001_R2_001_subset.fastq.gz
+      - real_data/assignment/reverse/24L005276_S11_L001_R2_001.fastq.gz
     design_file: real_data/assignment/designed_oligos_deduplicated.fasta
+    NGmerge:
+      min_overlap: 20
+      frac_mismatches_allowed: 0.1
+      min_dovetailed_overlap: 50
+    design_check:
+      fast: true
+      sequence_collitions: true
+    strand_sensitive:
+      enable: false
+      forward_adapter: AGGACCGGATCAACT
+      reverse_adapter: TCGGTTCACGCAATG
     configs:
-      default: {}                        # use default filtering unless customizing
+      default:
+        min_support: 3
+        fraction: 0.75
+
+# version: "0.5"
+# assignments:
+#   assignMPRAworkshop:
+#     bc_length: 12
+#     BC_rev_comp: false
+#     linker: GGAATTCATCTGGTACCTCGGTTCACGCAA
+#     alignment_tool:
+#       split_number: 30
+#       tool: bbmap
+#       configs:
+#         sequence_length: 300
+#         alignment_start: 1
+#         min_mapping_quality: 30
+#     FW:
+#       - real_data/assignment/forward/24L005276_S11_L001_R1_001_subset.fastq.gz
+#     REV:
+#       - real_data/assignment/reverse/24L005276_S11_L001_R2_001_subset.fastq.gz
+#     design_file: real_data/assignment/designed_oligos_deduplicated.fasta
+#     NGmerge:
+#       min_overlap: 20
+#       frac_mismatches_allowed: 0.1
+#       min_dovetailed_overlap: 50
+#     design_check:
+#       fast: true
+#       sequence_collitions: true
+#     strand_sensitive:
+#       enable: false
+#       forward_adapter: AGGACCGGATCAACT
+#       reverse_adapter: TCGGTTCACGCAATG
+#     configs:
+#       default:
+#         min_support: 3
+#         fraction: 0.75
+
+
+
 # ---
 # version: "0.5"
 # assignments:
