@@ -7,7 +7,7 @@ assignments:
     #linker: GAATTCATCTGGTACCTCG          # inferred linker separating barcode from oligos
     linker_length: 20
     alignment_tool:
-      split_number: 30
+      split_number: 30 #### number of files fastq should be split for parallelization
       tool: exact                        # REQUIRED for embedded barcode + linker mode
       configs:
         sequence_length: 300             # full length of each oligo in design_file
