@@ -1,43 +1,88 @@
+---
 version: "0.5"
 assignments:
   assignMPRAworkshop:
-    bc_length: 12
+    bc_length: 20 ### bc length verified
     BC_rev_comp: false
-    linker: GGAATTCATCTGGTACCTCGGTTCACGCAA
+    linker_length: 31
     alignment_tool:
       split_number: 30
       tool: bbmap
       configs:
-        sequence_length: 300
+        sequence_length: 151 ### length verified
         alignment_start: 1
-        min_mapping_quality: 30
+        min_mapping_quality: 30   #  ~1 in 1000 chance the mapping is wrong
     FW:
       - real_data/assignment/forward/24L005276_S11_L001_R1_001.fastq.gz
     REV:
       - real_data/assignment/reverse/24L005276_S11_L001_R2_001.fastq.gz
     design_file: real_data/assignment/designed_oligos_deduplicated.fasta
-    NGmerge:
-      min_overlap: 20
-      frac_mismatches_allowed: 0.1
-      min_dovetailed_overlap: 50
-    design_check:
-      fast: true
-      sequence_collitions: true
-    strand_sensitive:
-      enable: false
-      forward_adapter: AGGACCGGATCAACT
-      reverse_adapter: TCGGTTCACGCAATG
     configs:
       default:
-        min_support: 3
-        fraction: 0.75
+        min_support: 3  #  A barcode must appear at least k times across all reads to be considered for assignment.
+        fraction: 0.51  #  If a barcode appears 10 times, at least 7 of those must align to the same oligo. (Faye used 0.25 in her pipeline)
+
+
+# ---
+# version: "0.5"
+# assignments:
+#   assignMPRAworkshop:
+#     bc_length: 16
+#     # bc_length: 20
+#     BC_rev_comp: false
+#     # linker: GAATTCATCTGGTACCTCGGTTCACGCAATG  # Most common and best match (also used by Faye)
+#     linker_length: 31
+#     alignment_tool:
+#       split_number: 30
+#       tool: bbmap
+#       configs:
+#         sequence_length: 151 ###
+#         alignment_start: 1
+#         min_mapping_quality: 30   #  ~1 in 1000 chance the mapping is wrong
+#     FW:
+#       - real_data/assignment/forward/24L005276_S11_L001_R1_001.fastq.gz
+#     REV:
+#       - real_data/assignment/reverse/24L005276_S11_L001_R2_001.fastq.gz
+#     design_file: real_data/assignment/designed_oligos_deduplicated.fasta
+#     configs:
+#       default:
+#         min_support: 3  #  A barcode must appear at least k times across all reads to be considered for assignment.
+#         fraction: 0.7  #  If a barcode appears 10 times, at least 7 of those must align to the same oligo. (Faye used 0.25 in her pipeline)
+        
+
+### first successful run
+# ---
+# version: "0.5"
+# assignments:
+#   assignMPRAworkshop:
+#     bc_length: 12
+#     BC_rev_comp: false
+#     # linker: GAATTCATCTGGTACCTCGGTTCACGCAATG  # Most common and best match (also used by Faye)
+#     linker_length: 31
+#     alignment_tool:
+#       split_number: 30
+#       tool: bbmap
+#       configs:
+#         sequence_length: 300 ###
+#         alignment_start: 1
+#         min_mapping_quality: 30   #  ~1 in 1000 chance the mapping is wrong
+#     FW:
+#       - real_data/assignment/forward/24L005276_S11_L001_R1_001.fastq.gz
+#     REV:
+#       - real_data/assignment/reverse/24L005276_S11_L001_R2_001.fastq.gz
+#     design_file: real_data/assignment/designed_oligos_deduplicated.fasta
+#     configs:
+#       default:
+#         min_support: 1  #  A barcode must appear at least k times across all reads to be considered for assignment.
+#         fraction: 0.51  #  If a barcode appears 10 times, at least 6 of those must align to the same oligo. (Faye used 0.25 in her pipeline)
+
 
 # version: "0.5"
 # assignments:
 #   assignMPRAworkshop:
 #     bc_length: 12
 #     BC_rev_comp: false
-#     linker: GGAATTCATCTGGTACCTCGGTTCACGCAA
+#     linker: GGAATTCATCTGGTACCTCGGTTCACGCAA  # Most common and best match
 #     alignment_tool:
 #       split_number: 30
 #       tool: bbmap
